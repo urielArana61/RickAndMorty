@@ -3,26 +3,33 @@ import type {Card, character} from '../types/card'
 import '../App.css'
 export default function Card(){
     const [characters,setCharacters] = useState<character[] | null>(null)
-    const [loading,setLoading] = useState(true)
-    const [error,setError] = useState(false)
+    const [loading,setLoading] = useState(false)
+    const [error,setError] = useState(null)
     const [input,setInput] = useState("")
     const[page,setPage] = useState<number>(1)
     const url = "https://rickandmortyapi.com/api/character/?page="+page
     useEffect(()=>{
-         fetch(url)
-        .then((response) => {
-            if (response.ok) {
-                return response.json()
+        const get=async()=>{
+            setLoading(true)
+            setError(null)
+            try{
+                const response = await
+                fetch(url)
+                if (!response.ok) {
+                    throw new Error('Error en la API')
+                }
+                const data = await
+                response.json()
+                setCharacters(data.results)
+                console.log(data.results)
+                
+            }catch(e){
+                console.log("error")
+            }finally{
+                setLoading(false)
             }
-            throw new Error("Hubo un error")
-        })
-        .then((data:Card) => {
-            console.log(data.results)
-            setCharacters(data.results)
-        })
-        .catch(error => {
-            console.log(error.mesage)
-        })
+        }
+        get()
     },[page])
     const onsubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, text: string) => {
         e.preventDefault();    
@@ -35,7 +42,19 @@ export default function Card(){
             )
         }
     }
-
+    if(loading){
+        return(
+            <>
+                <div className="back">
+                    <div className="d-flex justify-content-center align-items-center vh-100">
+                        <div className="spinner-border text-light" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
     return (
         <>
             <div className="back vh-100">
@@ -47,7 +66,7 @@ export default function Card(){
                             <button className="btn btn-outline-dark" type="submit" onClick={(e)=>onsubmit(e, input)}>Search</button>
                     </form>
                 </div>
-            </nav>  
+            </nav>
                 <div className='back'>
                     <div className="container back">
                         <div className="row">
