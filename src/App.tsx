@@ -11,9 +11,7 @@ function App() {
       <div className="row">
         <Header/>
       </div>
-      <div className='row'>
         <Card/>
-      </div>
     </div>
     </>
   )
