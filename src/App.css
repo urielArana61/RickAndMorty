@@ -3,4 +3,28 @@
 }
 .bg-purple{
     background-color: rgb(112, 61, 160);
+    border-width: 5px;
+}
+.card{
+    background-color: rgb(112, 61, 160);
+    padding: 20px;
+    border-radius: 20%;
+}
+.card-img-top{
+    border-radius: 50%;
+}
+.row{
+    margin-top: 20px;
+}
+.btn{
+    background-color: black;
+    color: white;
+    border: solid white;
+    border-width: 1px;
+}
+.btn:hover{
+    background-color: white;
+    color: black;
+    border: solid black;
+    border-width: 1px;
 }
