@@ -1,5 +1,5 @@
 export default function Api(){
-    const url="https://rickandmortyapi.com/api/character/1"
+    const url="https://rickandmortyapi.com/api/character"
     fetch(url)
         .then((response)=>{
             if (response.ok){

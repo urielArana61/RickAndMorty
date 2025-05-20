@@ -1,4 +1,14 @@
 export type Card ={
+    info:{
+        count: number
+        pages: number
+        next: string
+        prev: string
+    }
+    results: character[]
+}
+
+export type character={
     id: number
     name: string
     status:string

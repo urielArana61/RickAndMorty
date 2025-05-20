@@ -7,11 +7,9 @@ function App() {
 
   return (
     <>
-    <div className="container-fluid bg-dark">
-      <div className="row">
-        <Header/>
-      </div>
-        <Card/>
+    <Header/>  
+    <div className='back'>
+      <Card/>
     </div>
     </>
   )
