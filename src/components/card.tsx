@@ -1,47 +1,8 @@
-import {useEffect, useState} from "react"
-import type {Card, character} from '../types/card'
+import type {Card} from '../types/card.interface'
+import {useCard }from '../hooks/useCardCard.ts'
 import '../App.css'
 export default function Card(){
-    const [characters,setCharacters] = useState<character[] | null>(null)
-    const [loading,setLoading] = useState(false)
-    const [error,setError] = useState(null)
-    const [input,setInput] = useState("")
-    const[page,setPage] = useState<number>(1)
-    const url = "https://rickandmortyapi.com/api/character/?page="+page
-    useEffect(()=>{
-        const get=async()=>{
-            setLoading(true)
-            setError(null)
-            try{
-                const response = await
-                fetch(url)
-                if (!response.ok) {
-                    throw new Error('Error en la API')
-                }
-                const data = await
-                response.json()
-                setCharacters(data.results)
-                console.log(data.results)
-                
-            }catch(e){
-                console.log("error")
-            }finally{
-                setLoading(false)
-            }
-        }
-        get()
-    },[page])
-    const onsubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, text: string) => {
-        e.preventDefault();    
-        if (text==""){
-            console.log('Mostrar completos',text)
-        }else{
-            console.log('Filtrando...',text)
-            characters?.filter(object => 
-                object.name==text ? setCharacters([object]) : console.log("No se encontro")
-            )
-        }
-    }
+    const {loading,input,setInput, onsubmit,characters,page,setPage} = useCard()
     if(loading){
         return(
             <>
